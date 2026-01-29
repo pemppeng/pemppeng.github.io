@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年日历</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .month {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .month:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .month-name {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .weekday {
+            text-align: center;
+            font-weight: bold;
+            color: #764ba2;
+            padding: 8px 0;
+            font-size: 0.9em;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: #f8f9fa;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+
+        .day:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .day.empty {
+            background: transparent;
+            cursor: default;
+        }
+
+        .day.empty:hover {
+            transform: none;
+        }
+
+        .day.weekend {
+            background: #ffe5e5;
+        }
+
+        .day.today {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .calendar-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📅 2026年日历</h1>
+        <div class="calendar-grid" id="calendar"></div>
+        <footer>
+            💜 由 Clawdbot 制作
+        </footer>
+    </div>
+
+    <script>
+        const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月', 
+                           '七月', '八月', '九月', '十月', '十一月', '十二月'];
+        const weekdayNames = ['日', '一', '二', '三', '四', '五', '六'];
+
+        function getDaysInMonth(year, month) {
+            return new Date(year, month + 1, 0).getDate();
+        }
+
+        function getFirstDayOfMonth(year, month) {
+            return new Date(year, month, 1).getDay();
+        }
+
+        function isWeekend(day) {
+            return day === 0 || day === 6;
+        }
+
+        function isToday(year, month, day) {
+            const today = new Date();
+            return today.getFullYear() === year && 
+                   today.getMonth() === month && 
+                   today.getDate() === day;
+        }
+
+        function createCalendar() {
+            const calendar = document.getElementById('calendar');
+            const year = 2026;
+
+            for (let month = 0; month < 12; month++) {
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'month';
+
+                // 月份名称
+                const monthTitle = document.createElement('div');
+                monthTitle.className = 'month-name';
+                monthTitle.textContent = `${monthNames[month]} ${year}`;
+                monthDiv.appendChild(monthTitle);
+
+                // 星期标题
+                const weekdaysDiv = document.createElement('div');
+                weekdaysDiv.className = 'weekdays';
+                weekdayNames.forEach(day => {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'weekday';
+                    dayDiv.textContent = day;
+                    weekdaysDiv.appendChild(dayDiv);
+                });
+                monthDiv.appendChild(weekdaysDiv);
+
+                // 日期格子
+                const daysDiv = document.createElement('div');
+                daysDiv.className = 'days';
+
+                const firstDay = getFirstDayOfMonth(year, month);
+                const daysInMonth = getDaysInMonth(year, month);
+
+                // 空白格子
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.className = 'day empty';
+                    daysDiv.appendChild(emptyDiv);
+                }
+
+                // 日期
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayDiv = document.createElement('div');
+                    const currentDayOfWeek = (firstDay + day - 1) % 7;
+                    
+                    dayDiv.className = 'day';
+                    if (isWeekend(currentDayOfWeek)) {
+                        dayDiv.classList.add('weekend');
+                    }
+                    if (isToday(year, month, day)) {
+                        dayDiv.classList.add('today');
+                    }
+                    dayDiv.textContent = day;
+                    
+                    daysDiv.appendChild(dayDiv);
+                }
+
+                monthDiv.appendChild(daysDiv);
+                calendar.appendChild(monthDiv);
+            }
+        }
+
+        createCalendar();
+    </script>
+</body>
+</html>
