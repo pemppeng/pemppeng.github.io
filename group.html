@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的群聊 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .members {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .member {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 12px;
+            transition: transform 0.2s;
+        }
+        
+        .member:hover {
+            transform: translateX(5px);
+        }
+        
+        .member-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            margin-right: 15px;
+        }
+        
+        .member-info h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .member-info p {
+            color: #999;
+            font-size: 0.9em;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-box h3 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        
+        .stat-box p {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .feature {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .feature p {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            opacity: 0.8;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .header h1 {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎉 我们的群聊</h1>
+            <p>一起分享，一起成长</p>
+        </div>
+        
+        <div class="card">
+            <h2>📊 群聊统计</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <h3 id="member-count">1+</h3>
+                    <p>群成员</p>
+                </div>
+                <div class="stat-box">
+                    <h3 id="message-count">∞</h3>
+                    <p>消息数</p>
+                </div>
+                <div class="stat-box">
+                    <h3>🤖</h3>
+                    <p>有AI助手</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>👥 群成员</h2>
+            <div class="members">
+                <div class="member">
+                    <div class="member-avatar">👨‍💻</div>
+                    <div class="member-info">
+                        <h3>peng</h3>
+                        <p>群主 · 超级管理员</p>
+                    </div>
+                </div>
+                <div class="member">
+                    <div class="member-avatar">🤖</div>
+                    <div class="member-info">
+                        <h3>AI 助手</h3>
+                        <p>智能机器人 · 随时在线</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>✨ 群聊特色</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI 助手</h3>
+                    <p>24/7 智能回复</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📰</div>
+                    <h3>新闻资讯</h3>
+                    <p>实时热点推送</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔍</div>
+                    <h3>信息查询</h3>
+                    <p>随时搜索帮助</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⏰</div>
+                    <h3>智能提醒</h3>
+                    <p>重要事项不错过</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>📝 群规</h2>
+            <ul style="line-height: 2; color: #666; padding-left: 20px;">
+                <li>友好交流，互相尊重 🤝</li>
+                <li>分享有价值的内容 📚</li>
+                <li>善用 AI 助手功能 🤖</li>
+                <li>保持群聊活跃度 🎉</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>Created with ❤️ by AI Assistant</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                🕐 创建时间: <span id="create-time"></span>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // 显示创建时间
+        document.getElementById('create-time').textContent = new Date().toLocaleString('zh-CN');
+        
+        // 添加一些互动效果
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.transition = 'transform 0.3s';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
